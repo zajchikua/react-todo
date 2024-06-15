@@ -32,7 +32,7 @@ function TodoList() {
 
         <div>
     	    <ul>
-    		    {todoList.map(function (todoList){
+    		    {todoList.map((todoList) => {
     		        return (
     		            <li key={todoList.id}>
     		                <span>
