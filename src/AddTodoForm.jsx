@@ -4,13 +4,18 @@ import viteLogo from "/vite.svg"
 import "./App.css"
 
 function AddTodoForm() {
+    const handleAddTodo = ( event ) => {
+        event.preventDefault();
+        let todoTitle = event.target.title.value;
+        console.log(todoTitle);
+        event.target.reset();
+    };
 
   return (
-
-    <form>
+    <form onSubmit={handleAddTodo}>
         <label htmlFor="todoTitle">Title</label>
-        <input id="todoTitle" type="text" />
-        <button text="Add"/>
+        <input id="todoTitle" type="text" name="title" />
+        <button type="submit">Add</button>
     </form>
   ) ;
 }
