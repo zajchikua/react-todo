@@ -4,6 +4,7 @@ import viteLogo from "/vite.svg"
 import "./App.css"
 import TodoList from './TodoList.jsx';
 import AddTodoForm from './AddTodoForm.jsx';
+import React from "react"
 
 const todoList = [
 	{
@@ -34,8 +35,10 @@ const todoList = [
 
 function App() {
   const [count, setCount] = useState(0)
-
-  //const setNewTodo = React.useState('');
+  const [newTodo, setNewTodo] = React.useState('');
+//  const  = (event) => {
+//    setNewTodo(event.target.value);
+//  };
 
   return (
     <div>
@@ -44,7 +47,10 @@ function App() {
         <TodoList title="My Todo List" todoList={todoList} />
         <hr />
         <h1>Add Todo Form</h1>
-        <AddTodoForm />
+        <AddTodoForm onAddTodo={setNewTodo}/>
+        <p>
+            New Todo {newTodo}
+        </p>
     </div>
   );
 }
