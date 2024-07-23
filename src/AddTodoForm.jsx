@@ -24,7 +24,7 @@ function AddTodoForm({ onAddTodo }) {
 
   return (
     <form onSubmit={handleAddTodo}>
-        <label htmlFor="todoType">Enter todo type</label>
+        <label htmlFor="todoType">Enter todo type </label>
         <input
             id="todoTitle"
             type="text"
