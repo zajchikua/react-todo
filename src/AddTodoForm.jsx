@@ -1,22 +1,38 @@
-import { useState } from "react"
+import React, { useState } from "react";
 import reactLogo from "./assets/react.svg"
 import viteLogo from "/vite.svg"
 import "./App.css"
 
-function AddTodoForm(props) {
-    const handleAddTodo = ( event ) => {
+function AddTodoForm({ onAddTodo }) {
+  const [todoTitle, setTodoTitle] = useState("");
+
+    function handleTitleChange(event) {
+        const newTodoTitle = event.target.value;
+        setTodoTitle(newTodoTitle);
+    }
+
+    function handleAddTodo(event) {
         event.preventDefault();
-        let todoTitle = event.target.title.value;
-        console.log(todoTitle);
-        event.target.reset();
-        props.onAddTodo(todoTitle);
-    };
+        const form = event.target;
+        const newTodo = {
+            title: todoTitle,
+            id: Date.now(),
+        };
+        onAddTodo(newTodo);
+        setTodoTitle("");
+    }
 
   return (
     <form onSubmit={handleAddTodo}>
-        <label htmlFor="todoTitle">Title</label>
-        <input id="todoTitle" type="text" name="title" />
-        <button type="submit">Add</button>
+        <label htmlFor="todoType">Enter todo type </label>
+        <input
+            id="todoTitle"
+            type="text"
+            name="title"
+            value={todoTitle}
+            onChange={handleTitleChange}
+        />
+        <button type="submit">Add Todo</button>
     </form>
   ) ;
 }

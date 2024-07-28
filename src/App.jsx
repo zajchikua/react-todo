@@ -6,51 +6,32 @@ import TodoList from './TodoList.jsx';
 import AddTodoForm from './AddTodoForm.jsx';
 import React from "react"
 
-const todoList = [
-	{
-		id: "001",
-		title: "Complete lesson 1 for CTD",
-		url: "https://classes.codethedream.org/course/react-v2/hawk?week=2",
-		author: "Nastya M.",
-		num_comments: 0,
-		points: 5,
-	},
-	{
-		id: "002",
-		title: "Setup printer for the MAC",
-		url: "https://classes.codethedream.org/course/react-v2/hawk?week=1",
-        author: "Nastya & Mom",
-        num_comments: 1,
-        points:2,
-	},
-	{
-		id: "003",
-		title: "Collect documents for the passport",
-		url: "https://classes.codethedream.org/course/react-v2/hawk?week=3",
-        author: "Nastya & Dad",
-        num_comments: 2,
-        points:2,
-	},
-];
+function useSemiPersistentState() {
+  const [todoList, setTodoList] = React.useState(
+    JSON.parse(localStorage.getItem('savedTodoList')) || []
+  );
+
+ React.useEffect(() => {
+        localStorage.setItem('savedTodoList',JSON.stringify(todoList));
+    }, [todoList, setTodoList]);
+
+    return [todoList, setTodoList];
+}
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [newTodo, setNewTodo] = React.useState('');
-//  const  = (event) => {
-//    setNewTodo(event.target.value);
-//  };
+
+  const [todoList, setTodoList] = useSemiPersistentState();
+
+    function addTodo(newTodo){
+        setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
+   }
 
   return (
     <div>
         <h1>Todo list</h1>
-        <TodoList />
-        <TodoList title="My Todo List" todoList={todoList} />
-        <hr />
         <h1>Add Todo Form</h1>
-        <AddTodoForm onAddTodo={setNewTodo}/>
-        <p>
-            New Todo {newTodo}
-        </p>
+        <AddTodoForm onAddTodo={addTodo} />
+        <TodoList todoList={todoList} />
     </div>
   );
 }
