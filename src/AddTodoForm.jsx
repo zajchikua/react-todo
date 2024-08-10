@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import reactLogo from "./assets/react.svg"
-import viteLogo from "/vite.svg"
-import "./App.css"
+import  { InputWithLabel } from './InputWithLabel';
 
-function AddTodoForm({ onAddTodo }) {
+export default function AddTodoForm({ onAddTodo }) {
   const [todoTitle, setTodoTitle] = useState("");
 
     function handleTitleChange(event) {
@@ -13,28 +11,25 @@ function AddTodoForm({ onAddTodo }) {
 
     function handleAddTodo(event) {
         event.preventDefault();
-        const form = event.target;
         const newTodo = {
             title: todoTitle,
-            id: Date.now(),
+            id: Date.now().toString(),
         };
         onAddTodo(newTodo);
         setTodoTitle("");
     }
 
   return (
-    <form onSubmit={handleAddTodo}>
-        <label htmlFor="todoType">Enter todo type </label>
-        <input
-            id="todoTitle"
-            type="text"
-            name="title"
-            value={todoTitle}
-            onChange={handleTitleChange}
-        />
-        <button type="submit">Add Todo</button>
-    </form>
-  ) ;
-}
 
-export default AddTodoForm;
+    <form onSubmit={handleAddTodo}>
+        <InputWithLabel
+            todoTitle={todoTitle}
+            value={todoTitle}
+            handleTitleChange={handleTitleChange}>
+        Title:
+        </InputWithLabel>
+
+        <button type="submit"> Add Todo </button>
+    </form>
+  );
+}
