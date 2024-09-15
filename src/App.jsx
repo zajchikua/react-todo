@@ -5,6 +5,8 @@ import "./App.css";
 import TodoList from './TodoList.jsx';
 import AddTodoForm from './AddTodoForm.jsx';
 import React from "react";
+import axios from 'axios';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
  const [todoList, setTodoList] = React.useState([]);
@@ -111,12 +113,28 @@ async function postTodo(todo) {
    }
 
   return (
-    <div>
-        <h1  style={{ color: "magenta" }}>Todo list</h1>
-        <h1  style={{ color: "green" }}>Add Todo Form</h1>
-        <AddTodoForm onAddTodo={addTodo} />
-        {isLoading ? <p>Loading...</p> : <TodoList onRemoveTodo={removeTodo} todoList={todoList} />}
-    </div>
+    <BrowserRouter>
+        <Routes>
+            <Route path="/"
+               element={
+                    <div>
+                        <h1  style={{ color: "magenta" }}>Todo list</h1>
+                        <h1  style={{ color: "green" }}>Add Todo Form</h1>
+                        <AddTodoForm onAddTodo={addTodo} />
+                        {isLoading ? <p>Loading...</p> : <TodoList onRemoveTodo={removeTodo} todoList={todoList} />}
+                    </div>
+               }
+            />
+            <Route path="/new"
+                element={
+
+                    <div>
+                        <h1  style={{ color: "blue" }}>New Todo list</h1>
+                    </div>
+                }
+            />
+        </Routes>
+    </BrowserRouter>
   );
 }
 
